@@ -1,9 +1,11 @@
 package com.example.springreactiveprototype.domain.user;
 
+import com.example.springreactiveprototype.domain.user.model.Result;
 import com.example.springreactiveprototype.domain.user.model.User;
 import com.example.springreactiveprototype.domain.user.model.UserStatusEnum;
 import com.example.springreactiveprototype.domain.user.payload.DeleteUserRequestDTO;
 import com.example.springreactiveprototype.domain.user.payload.SaveUserRequestDTO;
+import com.example.springreactiveprototype.domain.user.service.ResultService;
 import com.example.springreactiveprototype.domain.user.service.UserService;
 import com.example.springreactiveprototype.exception.exception.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
@@ -17,14 +19,22 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/users")
+@RequestMapping("/students")
 public class UserController {
     private final UserService userService;
+    private final ResultService resultService;
     private final ModelMapper mapper;
 
     @GetMapping("")
     public ResponseEntity<Flux<User>>getAllUsers() {
         return new ResponseEntity<>(userService.getAllUsers(UserStatusEnum.ACTIVE), HttpStatus.OK);
+    }
+
+
+    @GetMapping("/result/{rollNumber}")
+    public ResponseEntity<Mono<Result>> getResultByRollNumber(@PathVariable int rollNumber) {
+        // I think this endpoint is missing grade also
+        return new ResponseEntity<>(resultService.getResultByRollNumber(rollNumber), HttpStatus.OK);
     }
 
 
