@@ -1,7 +1,7 @@
 package com.example.springreactiveprototype.domain.user.payload;
 
 
-import com.example.testspringreactive.domain.user.model.UserStatusEnum;
+import com.example.springreactiveprototype.domain.user.model.UserStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
