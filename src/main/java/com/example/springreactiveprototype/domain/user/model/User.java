@@ -1,4 +1,4 @@
-package com.example.springreactiveprototype.model;
+package com.example.springreactiveprototype.domain.user.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

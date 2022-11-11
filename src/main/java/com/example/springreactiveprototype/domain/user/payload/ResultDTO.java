@@ -1,20 +1,19 @@
-package com.example.springreactiveprototype.model;
+package com.example.springreactiveprototype.domain.user.payload;
 
+import com.example.testspringreactive.domain.user.model.ResultRemarksEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-@Document("result")
-public class Result {
+@NoArgsConstructor
+public class ResultDTO {
     @Id
     private String id;
     private double totalMarks;
@@ -22,7 +21,7 @@ public class Result {
     private int rollNumber;
     private int grade;
     private ResultRemarksEnum remarks;
-    private Long positionInClass;
+    private int positionInClass;
     private Date createdAt;
     private Date updateAt;
 }

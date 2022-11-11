@@ -1,4 +1,4 @@
-package com.example.springreactiveprototype.repository;
+package com.example.springreactiveprototype.domain.user.repository;
 
 import com.example.testspringreactive.domain.user.model.User;
 import com.example.testspringreactive.domain.user.model.UserStatusEnum;
