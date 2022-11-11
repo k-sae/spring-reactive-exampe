@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Date;
+
 @AllArgsConstructor
 @Component
 public class ResultService {
@@ -26,6 +28,7 @@ public class ResultService {
         } else {
             result.setRemarks(ResultRemarksEnum.FAIL);
         }
+        result.setCreatedAt(new Date());
         return getPositionInClass(result).flatMap(position -> {
                     result.setPositionInClass(position);
             increaseStudentPositions(result.getObtainedMarks()).subscribe();
