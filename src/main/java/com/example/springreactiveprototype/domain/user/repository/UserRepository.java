@@ -10,4 +10,6 @@ public interface UserRepository extends ReactiveMongoRepository<User, String> {
     Mono<User> findFirstByRollNumber(int rollNumber);
     Mono<User> findFirstByRollNumberAndGrade(int rollNumber, int grade);
     Flux<User> findAllByStatus(UserStatusEnum status);
+
+    Mono<User> findFirstByName(String name);
 }

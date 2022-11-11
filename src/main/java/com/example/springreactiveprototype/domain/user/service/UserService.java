@@ -32,6 +32,10 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public Mono<User> findByName(String name) {
+        return userRepository.findFirstByName(name);
+    }
+
     public Mono<User> updateUser(User user) {
         user.setUpdateAt(new Date());
         return userRepository.save(user);
