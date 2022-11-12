@@ -32,20 +32,17 @@ public class ResultService {
         return getPositionInClass(result).flatMap(position -> {
                     result.setPositionInClass(position);
             increaseStudentPositions(result.getObtainedMarks()).subscribe();
-                    return resultRepository.save(result);
+                    return updateResult(result);
                 }
         );
 
     }
 
-    public Mono<Void> increaseStudentPositions(double getObtainedMarks) {
-        return resultRepository.findByObtainedMarksLessThanEqual(getObtainedMarks).collectList().flatMap(results -> {
-            results.forEach(result1 -> {
+    public Flux<Result> increaseStudentPositions(double getObtainedMarks) {
+        return resultRepository.findByObtainedMarksLessThanEqual(getObtainedMarks).flatMap(result -> {
                 // async update
-                result1.setPositionInClass(result1.getPositionInClass() + 1);
-                resultRepository.save(result1).subscribe();
-            });
-            return Mono.empty();
+                result.setPositionInClass(result.getPositionInClass() + 1);
+            return  resultRepository.save(result);
         });
     }
 
@@ -59,6 +56,7 @@ public class ResultService {
     }
 
     public Mono<Result> updateResult(Result result) {
+        result.setUpdateAt(new Date());
         return resultRepository.save(result);
     }
 

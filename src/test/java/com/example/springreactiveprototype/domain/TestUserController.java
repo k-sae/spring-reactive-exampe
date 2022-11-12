@@ -17,7 +17,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 //@ExtendWith(SpringExtension.class)
-@RunWith(SpringRunner.class)
 //  We create a `@SpringBootTest`, starting an actual server on a `RANDOM_PORT`
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestUserController {
