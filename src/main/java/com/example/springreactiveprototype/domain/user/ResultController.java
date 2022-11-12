@@ -32,6 +32,7 @@ public class ResultController {
 
     @PostMapping("")
     public Mono<Result> saveResult(@Validated @RequestBody SaveResultRequestDTO saveResultRequestDTO) {
+        // validate user exists first
         return userService.getUserByRollNumberAndGrade(saveResultRequestDTO.getRollNumber(), saveResultRequestDTO.getGrade())
                 .switchIfEmpty(Mono.error(new ResourceNotFoundException("User", "rollNumber", saveResultRequestDTO.getRollNumber())))
                 .then(resultService.saveResult(mapper.map(saveResultRequestDTO, Result.class)));

@@ -23,12 +23,15 @@ public class ResultService {
     }
 
     public Mono<Result> saveResult(Result result) {
+        // calculate remark value
         if (result.getObtainedMarks() / result.getTotalMarks() >= PASSING_MARK_PERCENTAGE) {
             result.setRemarks(ResultRemarksEnum.PASS);
         } else {
             result.setRemarks(ResultRemarksEnum.FAIL);
         }
         result.setCreatedAt(new Date());
+
+        // get position && update others positions asynchronously
         return getPositionInClass(result).flatMap(position -> {
                     result.setPositionInClass(position);
             increaseStudentPositions(result.getObtainedMarks()).subscribe();

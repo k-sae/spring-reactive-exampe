@@ -38,6 +38,7 @@ public class TestResultService {
     @Test
     public void addResultTest() {
 
+        // init mock data
         when(resultRepository.countByObtainedMarksIsGreaterThan(anyDouble()))
                 .thenReturn(Mono.just(1L));
         when(resultRepository.save(any())).thenReturn(
@@ -45,7 +46,9 @@ public class TestResultService {
                 ));
         when(resultRepository.findByObtainedMarksLessThanEqual(anyDouble()))
                 .thenReturn(Flux.just(Result.builder().remarks(ResultRemarksEnum.PASS).positionInClass(2L).build()));
+        // test
         Mono<Result> result = resultService.saveResult(Result.builder().obtainedMarks(6).totalMarks(10).build());
+       // verify the prediction (position in class), remarks
         StepVerifier.create(result)
                 .expectSubscription()
                 .expectNextMatches(p -> p.getRemarks() == ResultRemarksEnum.PASS && p.getPositionInClass() == 2L)
@@ -54,6 +57,8 @@ public class TestResultService {
 
     @Test
     public void increaseStudentPositionsTest() {
+
+        // init mock data
         when(resultRepository.findByObtainedMarksLessThanEqual(anyDouble()))
                 .thenReturn(Flux.just(
                         Result.builder().positionInClass(2L).build(),
@@ -62,7 +67,10 @@ public class TestResultService {
                 );
         when(resultRepository.save(any(Result.class))).thenAnswer(a -> Mono.just(a.getArgument(0)));
 
+        // test
         Flux<Result> result = resultService.increaseStudentPositions(2D);
+
+        // verify the prediction (position in class)
         StepVerifier.create(result)
                 .expectSubscription()
                 .expectNextMatches(p -> p.getPositionInClass() == 3L)

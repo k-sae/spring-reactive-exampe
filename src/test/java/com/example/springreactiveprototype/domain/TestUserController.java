@@ -40,17 +40,36 @@ public class TestUserController {
 
     @Test
     public void addUserTest(){
+        // valid user data
         SaveUserRequestDTO saveUserRequestDTO = new SaveUserRequestDTO(
                 "test name",
                 1,
                 "test father",
                 1
         );
+        // verify endpoint result
         webTestClient.post().uri("/students")
                 .header("Authorization", token)
                 .body(Mono.just(saveUserRequestDTO), User.class)
                 .exchange()
                 .expectStatus().isCreated();
+
+    }
+    @Test
+    public void verifyInvalidAddUserPayload(){
+        // invalid user data
+        SaveUserRequestDTO saveUserRequestDTO = new SaveUserRequestDTO(
+                "test name",
+                1000,
+                "test father",
+                10000
+        );
+        // verify endpoint result
+        webTestClient.post().uri("/students")
+                .header("Authorization", token)
+                .body(Mono.just(saveUserRequestDTO), User.class)
+                .exchange()
+                .expectStatus().isBadRequest();
 
     }
 
