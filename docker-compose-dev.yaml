@@ -1,0 +1,10 @@
+version: '3.5'
+services:
+  mongo:
+    image: mongo:5.0.8
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    container_name: "spring_reactive_example_db"

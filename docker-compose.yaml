@@ -1,0 +1,29 @@
+version: '3.5'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'spring_reactive_example_web'
+    ports:
+      - "8080:8080"
+      - "35729:35729"
+    depends_on:
+      - mongo
+    networks:
+      - spring_reactive_example
+
+  mongo:
+    image: mongo:5.0.8
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    networks:
+      - spring_reactive_example
+    container_name: "spring_reactive_example_db"
+
+
+networks:
+  spring_reactive_example:
+    driver: bridge
+    name: spring_reactive_example
