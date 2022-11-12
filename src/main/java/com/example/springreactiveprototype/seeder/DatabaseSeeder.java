@@ -19,6 +19,7 @@ public class DatabaseSeeder {
 
     public void seedUsersTable() {
         userRepository.count().subscribe(count -> {
+            userRepository.save(UserSeeder.getDefaultUser()).subscribe();
             if (count < 3) {
                 for (int i = 0; i < 3; i++) {
                     userRepository.save(UserSeeder.getUser()).subscribe();

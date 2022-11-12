@@ -20,5 +20,17 @@ public class UserSeeder {
                 .build();
 
     }
+    public static User getDefaultUser() {
+        Faker faker = new Faker();
+        return User.builder()
+                .name("defaultStudent")
+                .fatherName(faker.name().lastName())
+                .rollNumber(1)
+                .grade(1)
+                .status(UserStatusEnum.ACTIVE)
+                .createdAt(new Date())
+                .build();
+
+    }
 
 }
